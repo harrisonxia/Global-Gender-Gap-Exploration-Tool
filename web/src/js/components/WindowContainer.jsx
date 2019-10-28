@@ -58,6 +58,14 @@ const WindowContainer = () => (
                                     label: 'bbb',
                                     data: [3, 4, 5, 6, 7],
                                 },
+                                {
+                                    label: 'ccc',
+                                    data: [5, 4, 1, 6, 8],
+                                },
+                                {
+                                    label: 'ddd',
+                                    data: [5, 8, 10, 3, 1],
+                                },
                             ],
 
                         },
