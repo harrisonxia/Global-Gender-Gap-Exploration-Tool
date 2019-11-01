@@ -56,6 +56,7 @@
     "react-svg-loader": "^3.0.3",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "terser-webpack-plugin": "^2.2.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "uuid": "^3.3.2",
     "webpack": "^4.34.0",
