@@ -111,6 +111,7 @@ class App extends React.Component {
                 <WindowContainer
                   dataset={this.props.currentLineChart}
                   years={this.props.yearsArr}
+                  currentExpChart={this.props.currentExpChart}
                 />
               </Element>
             </div>
@@ -134,6 +135,7 @@ class App extends React.Component {
 function mapStateToProps(state) {
   return {
     currentLineChart: state.currentLineChart,
+    currentExpChart: state.currentExpChart,
     years: state.years,
     yearsArr: state.yearsArr,
   }

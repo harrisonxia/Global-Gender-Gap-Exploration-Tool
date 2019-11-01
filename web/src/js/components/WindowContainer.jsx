@@ -48,7 +48,7 @@ const WindowContainer = props => (
     <Window styleName='styles.windowSpacing'>
       <WindowHeader styleName='styles.windowHeader'>😎 Hello.exe</WindowHeader>
       <WindowContent>
-        {/* {console.log(props.years)} */}
+        {/* {console.log(props.currentExpChart)} */}
         {/* <Fieldset> */}
         {/* <Chart width={600} height={400} data={chartConfig.chartData} scale={chartConfig.cols}>
             <Axis name='genre' title={chartConfig.title} />
@@ -58,7 +58,7 @@ const WindowContainer = props => (
             <Geom type='interval' position='genre*sold' color='genre' />
           </Chart> */}
         {/* </Fieldset> */}
-        <Fieldset>
+        <Fieldset label='Education'>
           <Line
             config={{
               title: 'Expected years of schooling, female (years)', // optional
@@ -77,30 +77,15 @@ const WindowContainer = props => (
           />
         </Fieldset>
         <br />
-        {/* <Fieldset label='Education'>
+        <Fieldset label='Health'>
           <Radar
             config={{
-              title: 'Fake Data',
+              title: 'Life Expectancy, Female',
               data: {
-                labels: ['a', 'b', 'c', 'd', 'e'],
-                datasets: [
-                  {
-                    label: 'aaaa',
-                    data: [1, 2, 3, 4, 5],
-                  },
-                  {
-                    label: 'bbb',
-                    data: [3, 4, 5, 6, 7],
-                  },
-                  {
-                    label: 'ccc',
-                    data: [5, 4, 1, 6, 8],
-                  },
-                  {
-                    label: 'ddd',
-                    data: [5, 8, 10, 3, 1],
-                  },
-                ],
+                labels: R.isEmpty(props.years) ? [] : props.years,
+                datasets: R.isEmpty(props.currentExpChart)
+                  ? []
+                  : props.currentExpChart,
               },
               dataColors: [
                 '#dd4528',
@@ -117,7 +102,7 @@ const WindowContainer = props => (
           >
             {' '}
           </Radar>
-        </Fieldset> */}
+        </Fieldset>
       </WindowContent>
       <div styleName='styles.buttonGroup'>
         <Button onClick={() => scrollNext('techStack', -150)}>

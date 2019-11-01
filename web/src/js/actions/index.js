@@ -3,6 +3,7 @@ import {
   ADD_ARTICLE,
   DATA_LOADED,
   INIT_LINE_CHART,
+  INIT_EXP_CHART,
   START_TIMER,
   RESET_TIMER,
   SERVE_LINE_DATA,
@@ -28,13 +29,17 @@ export const getData = () => {
 
 export const initLineChart = () => {
   return dispatch => {
-    return (
-      Axios.get('./assets/data/expected_schooling.json')
-        // .then(response => console.log(response))
-        .then(json => {
-          dispatch({ type: INIT_LINE_CHART, payload: json.data })
-        })
-    )
+    return Axios.get('./assets/data/life_expectancy_female.json')
+      .then(resp => {
+        dispatch({ type: INIT_EXP_CHART, payload: resp.data })
+      })
+      .then(() => {
+        Axios.get('./assets/data/expected_schooling.json')
+          // .then(response => console.log(response))
+          .then(json => {
+            dispatch({ type: INIT_LINE_CHART, payload: json.data })
+          })
+      })
   }
 }
 
