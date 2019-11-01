@@ -5,14 +5,14 @@ import uuidv1 from 'uuid'
 import { addArticle } from '../actions/index'
 function mapDispatchToProps(dispatch) {
   return {
-    addArticle: article => dispatch(addArticle(article))
+    addArticle: article => dispatch(addArticle(article)),
   }
 }
 class ConnectedForm extends Component {
   constructor() {
     super()
     this.state = {
-      title: ''
+      title: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -31,17 +31,17 @@ class ConnectedForm extends Component {
     const { title } = this.state
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
+        <div className='form-group'>
+          <label htmlFor='title'>Title</label>
           <input
-            type="text"
-            className="form-control"
-            id="title"
+            type='text'
+            className='form-control'
+            id='title'
             value={title}
             onChange={this.handleChange}
           />
         </div>
-        <button type="submit" className="btn btn-success btn-lg">
+        <button type='submit' className='btn btn-success btn-lg'>
           SAVE
         </button>
       </form>

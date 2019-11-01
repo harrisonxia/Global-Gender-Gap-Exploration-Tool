@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"prettier.disableLanguages": [],
+		"html.format.wrapLineLength": 80,
+		"prettier.singleQuote": true,
+		"prettier.trailingComma": "es5"
+	}
+}

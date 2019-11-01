@@ -1,8 +1,9 @@
 # Actual Dataset
 data/
 
-# IntelliJ stuff <- Best IDE ever.
+# IDE
 .idea
+.vscode
 
 # Mac stuff
 .DS_Store

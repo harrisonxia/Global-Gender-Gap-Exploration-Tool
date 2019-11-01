@@ -1,12 +1,13 @@
 // Exmaple of Redux stateful components
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getData } from '../actions/index'
+import { getData } from '../actions/index.js'
 
 export class Post extends Component {
   constructor() {
     super()
   }
+
   componentDidMount() {
     this.props.getData()
   }
@@ -24,7 +25,7 @@ export class Post extends Component {
 }
 function mapStateToProps(state) {
   return {
-    articles: state.remoteArticles.slice(0, 100)
+    articles: state.remoteArticles.slice(0, 100),
   }
 }
 export default connect(

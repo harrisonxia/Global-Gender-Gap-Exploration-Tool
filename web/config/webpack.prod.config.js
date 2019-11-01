@@ -6,10 +6,11 @@ const webpackBaseConfig = require('./webpack.common.config.js')
 const path = require('path')
 const context = path.resolve(__dirname, '..')
 const ASSET_PATH = process.env.ASSET_PATH || '/CMPT767/'
-// console.log(ASSET_PATH)
+
 module.exports = merge(webpackBaseConfig, {
     optimization: {
         minimizer: [
+            // TODO: uglify was causing prod build issue
             // new UglifyJsPlugin(),
             new OptimizeCSSAssetsPlugin(),
         ],
