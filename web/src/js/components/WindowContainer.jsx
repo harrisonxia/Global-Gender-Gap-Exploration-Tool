@@ -1,22 +1,22 @@
 import * as React from 'react'
 import {
-  Button,
-  Window,
-  WindowContent,
-  WindowHeader,
-  Fieldset,
-  Radio,
-  // Tooltip,
-  reset,
-  themes,
+    Button,
+    Window,
+    WindowContent,
+    WindowHeader,
+    Fieldset,
+    Radio,
+    // Tooltip,
+    reset,
+    themes,
 } from 'react95'
 import chartXkcd from 'chart.xkcd'
-import { Line, Radar, Pie, XY } from 'chart.xkcd-react'
-import { scroller } from 'react-scroll'
-import { Chart, Geom, Axis, Tooltip, Legend } from 'bizcharts'
+import {Line, Radar, Pie, XY} from 'chart.xkcd-react'
+import {scroller} from 'react-scroll'
+import {Chart, Geom, Axis, Tooltip, Legend} from 'bizcharts'
 import styles from '../../css/Window.css'
 import * as R from 'ramda'
-import { years } from '../../assets/data/data.js'
+import {years} from '../../assets/data/data.js'
 // const chartConfig = {
 //   chartData: [
 //     { genre: 'Sports', sold: 275, income: 2300 },
@@ -42,75 +42,103 @@ import { years } from '../../assets/data/data.js'
 //     position: 'center', // 标题的位置，**新增**
 //   },
 // }
-
+const data =
+[
+    {
+        'id': 'USA',
+        'data': [
+            {
+                'x': 1990,
+                'y': 1.5,
+            },
+            {
+                'x': 1991,
+                'y': 2,
+            },
+        ],
+    },
+    {
+        'id': 'CAN',
+        'data': [
+            {
+                'x': 1990,
+                'y': 2.5,
+            },
+            {
+                'x': 1991,
+                'y': 3,
+            },
+        ],
+    },
+]
 const WindowContainer = props => (
-  <div stylename='styles.windowDivLayer}'>
-    <Window styleName='styles.windowSpacing'>
-      <WindowHeader styleName='styles.windowHeader'>😎 Hello.exe</WindowHeader>
-      <WindowContent>
-        {/* {console.log(props.currentExpChart)} */}
-        {/* <Fieldset> */}
-        {/* <Chart width={600} height={400} data={chartConfig.chartData} scale={chartConfig.cols}>
+    <div stylename='styles.windowDivLayer}'>
+        <Window styleName='styles.windowSpacing'>
+            <WindowHeader styleName='styles.windowHeader'>😎 Hello.exe</WindowHeader>
+            <WindowContent>
+                {/* {console.log(props.currentExpChart)} */}
+                {/* <Fieldset> */}
+                {/* <Chart width={600} height={400} data={chartConfig.chartData} scale={chartConfig.cols}>
             <Axis name='genre' title={chartConfig.title} />
             <Axis name='sold' title={chartConfig.title} />
             <Legend position='top' dy={-20} />
             <Tooltip />
             <Geom type='interval' position='genre*sold' color='genre' />
           </Chart> */}
-        {/* </Fieldset> */}
-        <Fieldset label='Education'>
-          <Line
-            config={{
-              title: 'Expected years of schooling, female (years)', // optional
-              xLabel: 'Year', // optional
-              yLabel: 'y', // optional
-              data: {
-                labels: R.isEmpty(props.years) ? [] : props.years,
-                datasets: R.isEmpty(props.dataset) ? [] : props.dataset,
-              },
-              options: {
-                // optional
-                yTickCount: 3,
-                legendPosition: chartXkcd.config.positionType.upLeft,
-              },
-            }}
-          />
-        </Fieldset>
-        <br />
-        <Fieldset label='Health'>
-          <Radar
-            config={{
-              title: 'Life Expectancy, Female',
-              data: {
-                labels: R.isEmpty(props.years) ? [] : props.years,
-                datasets: R.isEmpty(props.currentExpChart)
-                  ? []
-                  : props.currentExpChart,
-              },
-              dataColors: [
-                '#dd4528',
-                '#28a3dd',
-                '#f3db52',
-                '#ed84b5',
-                '#4ab74e',
-                '#9179c0',
-                '#8e6d5a',
-                '#f19839',
-                '#949494',
-              ],
-            }}
-          >
-            {' '}
-          </Radar>
-        </Fieldset>
-      </WindowContent>
-      <div styleName='styles.buttonGroup'>
-        <Button onClick={() => scrollNext('techStack', -150)}>
-          <span>Next ⇓</span>
-        </Button>
-      </div>
-    </Window>
-  </div>
+                {/* </Fieldset> */}
+                <Fieldset label='Education'>
+                    <Line
+                        config={{
+                            title: 'Expected years of schooling, female (years)', // optional
+                            xLabel: 'Year', // optional
+                            yLabel: 'y', // optional
+                            data: {
+                                labels: R.isEmpty(props.years) ? [] : props.years,
+                                datasets: R.isEmpty(props.dataset) ? [] : props.dataset,
+                            },
+                            options: {
+                                // optional
+                                yTickCount: 3,
+                                legendPosition: chartXkcd.config.positionType.upLeft,
+                            },
+                        }}
+                    />
+                </Fieldset>
+                <br/>
+                <Fieldset label='Health'>
+                    <Radar
+                        config={{
+                            title: 'Life Expectancy, Female',
+                            data: {
+                                labels: R.isEmpty(props.years) ? [] : props.years,
+                                datasets: R.isEmpty(props.currentExpChart)
+                                    ? []
+                                    : props.currentExpChart,
+                            },
+                            dataColors: [
+                                '#dd4528',
+                                '#28a3dd',
+                                '#f3db52',
+                                '#ed84b5',
+                                '#4ab74e',
+                                '#9179c0',
+                                '#8e6d5a',
+                                '#f19839',
+                                '#949494',
+                            ],
+                        }}
+                    >
+                        {' '}
+                    </Radar>
+                </Fieldset>
+            </WindowContent>
+            <div styleName='styles.buttonGroup'>
+                <Button onClick={() => scrollNext('techStack', -150)}>
+                    <span>Next ⇓</span>
+                </Button>
+            </div>
+        </Window>
+    </div>
 )
 
 export default WindowContainer

@@ -35,6 +35,10 @@
   font-family: 'VT323', monospace !important;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: column;
+}
 .nameInline {
   font-size: 1.25rem;
   font-weight: 900;
@@ -82,4 +86,9 @@
 .processCell {
   padding: 0.5rem 0.5rem 0 0.5rem !important;
   vertical-align: middle;
+}
+
+.countryNames {
+  display: flex;
+  flex-direction: column;
 }
