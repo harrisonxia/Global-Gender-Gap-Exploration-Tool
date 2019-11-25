@@ -220,7 +220,7 @@ class App extends React.Component {
                                     <WindowHeader styleName='styles.windowHeader'>🏆 Year-over-year
                                         Ranking </WindowHeader>
                                     <WindowContent>
-                                        <Fieldset label='AreaBump'>
+                                        <Fieldset label='Countries with higher ranking stay on the top and have thicker lines.'>
                                             <div styleName='appStyles.areaBump'>
                                                 <AreaBump
                                                     data={this.props.overallSubset}
