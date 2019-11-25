@@ -13,6 +13,7 @@ import {
     INIT_AREA_BUMP,
     UPDATE_VIEW,
     RESET_ALL,
+    REMOVE_ALL,
 } from '../constants/action-types.js'
 import Axios from 'axios'
 
@@ -30,13 +31,14 @@ export const getData = () => {
     }
 }
 
-export const initAreaBump = () => {
+export const loadData = (file) => {
     return dispatch => {
-        return Axios.get('./assets/data/overall.json').then(json => {
-            dispatch({type: INIT_AREA_BUMP, payload: json.data})
+        return Axios.get('./assets/data/'+file+'.json').then(json => {
+            dispatch({type: INIT_AREA_BUMP, payload: json.data, file: file})
         })
     }
 }
+
 export const initLineChart = () => {
     return dispatch => {
         return Axios.get('./assets/data/life_expectancy_female.json')
@@ -79,4 +81,8 @@ export const updateView = (name, value) => {
 
 export const resetAll = () => {
     return {type: RESET_ALL}
+}
+
+export const removeAll = () => {
+    return {type: REMOVE_ALL}
 }

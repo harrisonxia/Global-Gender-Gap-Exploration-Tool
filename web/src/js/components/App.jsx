@@ -1,25 +1,39 @@
 import * as React from 'react'
 import Header from './HeadBar.jsx'
 import {Element} from 'react-scroll'
-import TechStack from './TechStack.jsx'
 import {createGlobalStyle, ThemeProvider} from 'styled-components'
 import appStyles from '../../css/App.css'
-import WindowContainer from './WindowContainer.jsx'
-import {Button, Select, reset, themes, TextField} from 'react95'
+import {
+    Radio,
+    Toolbar,
+    Divider,
+    Button,
+    Select,
+    reset,
+    themes,
+    TextField,
+    WindowHeader,
+    WindowContent,
+    Fieldset,
+    Window,
+} from 'react95'
 import {connect} from 'react-redux'
 import {
-    initAreaBump,
+    loadData,
     initCountry,
     initLineChart,
     serveLineData,
     updateYear,
     addCountry,
     resetAll,
+    removeAll,
 } from '../actions/index.js'
 import {yearSelection} from '../../assets/data/data.js'
-import MyResponsiveAreaBump from './BumpArea.jsx'
+import AreaBump from './BumpArea.jsx'
 import styles from '../../css/Window.css'
 import Countries from './Countries.jsx'
+import Map from './Map.jsx'
+import Bullet from './Bullet.jsx'
 
 const ResetStyles = createGlobalStyle`
   ${reset}
@@ -33,22 +47,12 @@ class App extends React.Component {
         country: '',
         show: false,
     }
-
     componentDidMount() {
         this.props.initCountry()
-        this.props.initAreaBump()
-        // this.props.initLineChart()
+        this.props.loadData('expected_years_of_schooling')
     }
-
     startTimer = () => {
         this.props.serveLineData()
-    }
-    startOnClick = () => {
-        this.pauseOnClick()
-        this.intervalId = setInterval(this.startTimer.bind(this), 500)
-    }
-    pauseOnClick = () => {
-        clearInterval(this.intervalId)
     }
     startYearOnChange = val => {
         this.startYear = val
@@ -63,9 +67,6 @@ class App extends React.Component {
         this.setState({
             country: val.target.value,
         })
-    }
-    getCurView = () => {
-        this.setState((currentState) => ({show: !currentState.show}))
     }
 
     download(text) {
@@ -109,22 +110,12 @@ class App extends React.Component {
     }
 
     render() {
-
-        // console.log(this.props.overall)
         return (
             <div styleName='appStyles.mainDiv'>
                 <ResetStyles/>
                 <ThemeProvider theme={themes.coldGray}>
                     <Header/>
                     <div styleName='appStyles.control'>
-                        <TextField
-                            value={this.country}
-                            onChange={this.handleCountryChange}
-                            width={50}
-                        />
-                        <Button onClick={() => this.props.addCountry(this.state.country)}>
-                            <span>Add a country</span>
-                        </Button>
                         <Countries
                             data={this.props.overall.map(({id}) => {
                                 return id
@@ -133,89 +124,116 @@ class App extends React.Component {
                                 return id
                             })}
                             init={this.getCurrentCountry()}
+                            styleName='styles.elementMargin'
                         />
-                        <div styleName='styles.buttonGroup'>
-                            <Select
-                                items={yearSelection}
-                                onChange={this.startYearOnChange}
-                                height={100}
-                                width={100}
+                        <Divider styleName='styles.divider'/>
+                        <div styleName='styles.addCountry'>
+                            <TextField
+                                value={this.country}
+                                onChange={this.handleCountryChange}
+                                width={175}
+                                styleName='styles.elementMargin'
                             />
-                            <Select
-                                items={yearSelection.slice(1)}
-                                onChange={this.endYearOnChange}
-                                height={100}
-                                width={100}
-                            />
+                            <Button
+                                styleName='styles.elementMargin'
+                                onClick={() => this.props.addCountry(this.state.country)}
+                            >
+                                <span>Add a country</span>
+                            </Button>
                         </div>
-                        <div styleName='styles.buttons'>
+                        <Divider styleName='styles.divider'/>
+                        <div styleName='styles.yearSel'>
+                            <div styleName='styles.buttonGroup'>
+                                <Select
+                                    items={yearSelection}
+                                    onChange={this.startYearOnChange}
+                                    height={100}
+                                    width={85}
+                                />
+                                <Select
+                                    items={yearSelection.slice(1)}
+                                    onChange={this.endYearOnChange}
+                                    height={100}
+                                    width={85}
+                                />
+                            </div>
                             <Button
                                 onClick={() => this.updateYear(this.startYear, this.endYear)}
                             >
                                 <span>Update Years</span>
                             </Button>
+                        </div>
+                        <Divider styleName='styles.divider'/>
+                        <div styleName='styles.buttons'>
                             <Button
-                                onClick={() => this.props.resetAll()}
+                                onClick={() => this.props.loadData('expected_years_of_schooling')}
                             >
                                 <span>Reset All</span>
                             </Button>
-                            {/*<Button*/}
-                            {/*    onClick={() => this.getCurView()}>*/}
-                            {/*    <span>{!this.state.show ? 'Get current data' : 'Hide current data'}</span>*/}
-                            {/*</Button>*/}
+                            <Button
+                                onClick={() => this.props.removeAll()}>
+                                <span>Remove All Countries</span>
+                            </Button>
                             <Button
                                 onClick={() => this.download(this.props.overallSubset)}>
                                 <span>Download Current Data</span>
                             </Button>
                         </div>
-                        {/*{*/}
-                        {/*    this.state.show &&*/}
-                        {/*    (<div styleName='appStyles.curDate'>*/}
-                        {/*        {this.props.overallSubset.map(obj => {*/}
-                        {/*            console.log(obj.id)*/}
-                        {/*            return (*/}
-                        {/*                <div key={obj.id + 'curdatasubset'}>*/}
-                        {/*                    {obj.id}:<br/>*/}
-                        {/*                    {obj.data.map((x => {*/}
-                        {/*                        return (*/}
-                        {/*                            <div key={obj.id + x.x}>*/}
-                        {/*                                <span>Year: {x.x}</span><br/>*/}
-                        {/*                                <span>Data: {x.y}</span>*/}
-                        {/*                            </div>*/}
-                        {/*                        )*/}
-                        {/*                    }))}*/}
-                        {/*                </div>)*/}
-                        {/*        })}*/}
-                        {/*    </div>)*/}
-                        {/*}*/}
-
-                        {/*<div styleName='styles.buttonGroup'>*/}
-                        {/*    <Button onClick={() => this.startOnClick()}>*/}
-                        {/*        <span>Start Drawing</span>*/}
-                        {/*    </Button>*/}
-                        {/*    <Button onClick={() => this.pauseOnClick()}>*/}
-                        {/*        <span>Pause Drawing</span>*/}
-                        {/*    </Button>*/}
-                        {/*</div>*/}
+                    </div>
+                    <div styleName='appStyles.rightPanel'>
+                        Currently viewing:<br/>
+                        <span styleName='appStyles.currentViewing'>{this.props.currentData}</span>
                     </div>
                     <div styleName='appStyles.mainContainer'>
                         <div styleName='appStyles.windowContainer'>
                             <Element name='intro'>
-                                <div styleName='appStyles.areaBump'>
-                                    <MyResponsiveAreaBump
-                                        data={this.props.overallSubset}
-                                    />
-                                    {/*<WindowContainer*/}
-                                    {/*  dataset={this.props.currentLineChart}*/}
-                                    {/*  years={this.props.yearsArr}*/}
-                                    {/*  currentExpChart={this.props.currentExpChart}*/}
-                                    {/*/>*/}
-                                </div>
+                                <Window styleName='styles.windowSpacing'>
+                                    <WindowHeader styleName='styles.windowHeader'>🌍 Map</WindowHeader>
+                                    <WindowContent>
+                                        <Fieldset label='Click on the map to add a country to create your own view.'>
+                                            <span>Different colors represent different countries.</span>
+                                            <div styleName='appStyles.areaBump'>
+                                                <Map/>
+
+                                            </div>
+                                        </Fieldset>
+                                    </WindowContent>
+                                </Window>
+                            </Element>
+                        </div>
+
+                        <div styleName='appStyles.windowContainerBullet'>
+                            <Element name='bullet'>
+                                <Window styleName='styles.windowSpacing'>
+                                    <WindowHeader styleName='styles.windowHeader'>📊 The 25th, 50th, 75th percentile and average </WindowHeader>
+                                    <WindowContent>
+                                        <Fieldset
+                                            label='Three types of shade display the 25th, 50th, and 75th percentile of current selection of countries. Red marker shows the average.'>
+                                            <div styleName='appStyles.bullet'>
+                                                <Bullet/>
+                                            </div>
+                                        </Fieldset>
+                                    </WindowContent>
+                                </Window>
                             </Element>
                         </div>
 
                         <div styleName='appStyles.windowContainer'>
-                            <Element name='techStack'>{/* <TechStack/> */}</Element>
+                            <Element name='areaBump'>
+                                <Window styleName='styles.windowSpacing'>
+                                    <WindowHeader styleName='styles.windowHeader'>🏆 Year-over-year
+                                        Ranking </WindowHeader>
+                                    <WindowContent>
+                                        <Fieldset label='AreaBump'>
+                                            <div styleName='appStyles.areaBump'>
+                                                <AreaBump
+                                                    data={this.props.overallSubset}
+                                                />
+                                            </div>
+                                        </Fieldset>
+                                    </WindowContent>
+                                </Window>
+                            </Element>
                         </div>
                     </div>
                 </ThemeProvider>
@@ -232,10 +250,11 @@ function mapStateToProps(state) {
         yearsArr: state.yearsArr,
         overall: state.overall,
         overallSubset: state.overallSubset,
+        currentData: state.currentData,
     }
 }
 
 export default connect(
     mapStateToProps,
-    {initAreaBump, initCountry, initLineChart, serveLineData, updateYear, addCountry, resetAll},
+    {loadData, initCountry, initLineChart, serveLineData, updateYear, addCountry, resetAll, removeAll},
 )(App)

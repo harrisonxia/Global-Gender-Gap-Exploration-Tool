@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import {ResponsiveAreaBump} from '@nivo/bump'
 
-const MyResponsiveAreaBump = (props) => {
+const AreaBump = (props) => {
     return (
         <ResponsiveAreaBump
             data={props.data}
@@ -27,9 +27,10 @@ const MyResponsiveAreaBump = (props) => {
                 legendPosition: 'middle',
                 legendOffset: 32,
             }}
+            endLabel="id"
             // tooltip={(obj) =>{
             //     return <strong>{obj.serie.id}</strong>}}
         />)
 }
 
-export default MyResponsiveAreaBump
+export default AreaBump

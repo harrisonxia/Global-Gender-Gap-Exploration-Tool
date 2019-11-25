@@ -27,7 +27,8 @@ class Countries extends React.Component {
             <div styleName='styles.windowDivLayer'>
                 <div styleName='styles.countryNames'>
                     {this.props.data.map((country) => {
-                        return <Checkbox checked={this.props.init[country]} onChange={this.handleChange} value={country}
+                        return <Checkbox checked={this.props.init[country]} onChange={this.handleChange}
+                                         value={country}
                                          label={country}
                                          name='Country' key={country}/>
                     })}

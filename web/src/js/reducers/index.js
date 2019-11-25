@@ -8,23 +8,13 @@ import {
     ADD_COUNTRY,
     INIT_AREA_BUMP,
     RESET_ALL,
+    REMOVE_ALL,
 } from '../constants/action-types.js'
-import {yearSelection, years} from '../../assets/data/data.js'
+import {yearSelection, years, defaultCountry} from '../../assets/data/data.js'
 import {UPDATE_VIEW} from '../constants/action-types'
+import {ifElse} from 'ramda'
 
 const initialState = {
-    articles: [],
-    remoteArticles: [],
-    lineChart: [],
-    currentLineChart: [],
-    expChart: [],
-    currentExpChart: [
-        {
-            label: 'CAN',
-            data: [0],
-        },
-    ],
-    timer: 0,
     years: yearSelection,
     yearsArr: years,
     countries: [],
@@ -68,6 +58,7 @@ const initialState = {
             },
         ],
     }],
+    currentData: 'Loading..',
 }
 
 const updateYears = (dataset, start, end) => {
@@ -83,7 +74,6 @@ function rootReducer(state = initialState, action) {
     switch (action.type) {
         case INIT_LINE_CHART:
             let init = []
-            // console.log(action.payload)
             let pay = action.payload.data
             pay.forEach(obj => {
                 if (state.currentCountries[obj.label]) {
@@ -140,17 +130,36 @@ function rootReducer(state = initialState, action) {
         case UPDATE_YEAR:
             // state.overallSubset
             return Object.assign({}, state, {
-                overallSubset: updateYears(state.overallSubset, action.start, action.end)
+                overallSubset: updateYears(state.overall, action.start, action.end)
             })
         case INIT_COUNTRY:
             return Object.assign({}, state, {
                 countries: action.payload,
             })
         case INIT_AREA_BUMP:
-            return Object.assign({}, state, {
-                overall: action.payload,
-                overallSubset: action.payload,
-            })
+            const payloadSubset = action.payload.filter(obj => defaultCountry.includes(obj.id))
+            let cur = ''
+            if (action.file === 'expected_years_of_schooling')
+                cur = 'Expected Years of Schooling (years)'
+            else if (action.file === 'mortality_rate')
+                cur = 'Female Adult Mortality Rate (per 1,000 people)'
+            else if (action.file === 'seats_in_parliament')
+                cur = 'Share of seats in parliament (% held by women)'
+            else if (action.file === 'senior_and_middle_management')
+                cur = 'Female share of employment in senior and middle management(%)'
+            return {
+                ...state,
+                raw: action.payload,
+                overall: payloadSubset,
+                overallSubset: payloadSubset,
+                currentData: cur,
+            }
+        case REMOVE_ALL:
+            return {
+                ...state,
+                overall: [],
+                overallSubset: [],
+            }
         case UPDATE_VIEW:
             let subset
             if (action.value === false) {
@@ -168,46 +177,19 @@ function rootReducer(state = initialState, action) {
                 overallSubset: state.overall,
             })
         case ADD_COUNTRY:
-            if (
-                !state.currentCountries[action.country] &&
-                state.countries[action.country]
-            ) {
-                let obj = Object.assign({}, state.currentCountries)
-                let line = state.currentLineChart.slice()
-                let exp = state.currentExpChart.slice()
-                let curLen = state.currentLineChart[0].data.length
-                let prev_data = state.lineChart.find(ele => {
-                    // console.log(ele)
-                    return ele.label === action.country
-                })
-
-                // console.log(prev_data.data)
-                prev_data = prev_data.data.slice(0, curLen)
-                // console.log(prev_data)
-                let prev_exp_data = state.expChart
-                    .find(ele => {
-                        // console.log(ele)
-                        return ele.label === action.country
-                    })
-                    .data.slice(0, curLen)
-                line.push({
-                    label: action.country,
-                    data: prev_data,
-                })
-                exp.push({
-                    label: action.country,
-                    data: prev_exp_data,
-                })
-
-                obj[action.country] = state.countries[action.country]
-                // console.log(state.currentLineChart)
-
-                return Object.assign({}, state, {
-                    currentCountries: obj,
-                    currentLineChart: line,
-                    currentExpChart: exp,
-                })
+            if (!state.overall.some(e => e.id === action.country)) {
+                const found = state.raw.filter(obj => obj.id === action.country)
+                if (found.length > 0) {
+                    return {
+                        ...state,
+                        overall: [...state.overall, found[0]],
+                        overallSubset: [...state.overallSubset, found[0]]
+                    }
+                } else {
+                    console.log('not found')
+                }
             }
+            return state
         // fallback to default elsewise
         default:
             return state

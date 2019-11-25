@@ -6,11 +6,12 @@
     background-size: cover;
     display: flex;
     flex-direction: column;
+    min-height: 80rem;
 }
 
 .mainContainer {
     margin: 0 3rem 3rem 3rem;
-    max-width: 65%;
+    /*max-width: 65%;*/
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,13 +21,22 @@
 .windowContainer {
     display: flex;
     justify-content: center;
-    margin: 10% 0;
+    /*margin: 10% 0;*/
+    margin-bottom: 1rem;
+}
+
+.windowContainerBullet {
+    display: flex;
+    justify-content: center;
+    min-height: max-content;
+    margin-bottom: 1rem;
 }
 
 .control {
     position: fixed;
-    top: 5rem;
+    top: 3.5rem;
     z-index: 100;
+    margin-left: 0.5rem;
 }
 
 .areaBump {
@@ -34,6 +44,24 @@
     height: 25rem;
 }
 
+.bullet {
+    width: 60rem;
+    height: 50rem;
+}
+
 .curDate {
     overflow: scroll
+}
+
+.rightPanel {
+    right: 1rem;
+    position: fixed;
+    z-index: 100;
+    margin-top: 5rem;
+    max-width: 10rem;
+}
+
+.currentViewing {
+    font-weight: bolder;
+    font-size: 2rem;
 }
