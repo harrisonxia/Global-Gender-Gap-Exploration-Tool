@@ -46,19 +46,3 @@ object-assign
  * @author   Feross Aboukhadijeh <https://feross.org>
  * @license  MIT
  */
-
-/*!
- * EventEmitter v5.1.0 - git.io/ee
- * Unlicense - http://unlicense.org/
- * Oliver Caldwell - http://oli.me.uk/
- * @preserve
- */
-
-/** @license React v16.8.6
- * react-is.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
