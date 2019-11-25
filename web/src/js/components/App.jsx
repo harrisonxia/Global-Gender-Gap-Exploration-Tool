@@ -21,8 +21,6 @@ import {connect} from 'react-redux'
 import {
     loadData,
     initCountry,
-    initLineChart,
-    serveLineData,
     updateYear,
     addCountry,
     resetAll,
@@ -51,9 +49,7 @@ class App extends React.Component {
         this.props.initCountry()
         this.props.loadData('expected_years_of_schooling')
     }
-    startTimer = () => {
-        this.props.serveLineData()
-    }
+
     startYearOnChange = val => {
         this.startYear = val
     }
@@ -256,5 +252,5 @@ function mapStateToProps(state) {
 
 export default connect(
     mapStateToProps,
-    {loadData, initCountry, initLineChart, serveLineData, updateYear, addCountry, resetAll, removeAll},
+    {loadData, initCountry, updateYear, addCountry, resetAll, removeAll},
 )(App)

@@ -696,9 +696,11 @@ const data = [
     }
 ]
 export const getCountryName = (country) => {
-    return Object.keys(mapping).filter(userName => mapping[userName].countryName === country).map(userName => mapping[userName])
+    return Object.keys(mapping).filter(userName => mapping[userName].countryName === country)[0]
 }
-
+export const ISO3ToName = (iso3) => {
+    return mapping[iso3].countryName
+}
 const Map = (props) => {
     const handleClick = (data, e) => {
         this.props.addCountry(data.id)

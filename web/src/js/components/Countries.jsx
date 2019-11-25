@@ -14,6 +14,11 @@ import {
 import styles from '../../css/Window.css'
 import {connect} from 'react-redux'
 import {updateView} from '../actions/index.js'
+import {ISO3ToName} from './Map.jsx'
+
+const generateLabel = (country) => (
+    <span styleName='styles.checkboxLabel'>{country + ': ' + ISO3ToName(country)}</span>
+)
 
 // TODO: Could and should be a functional component
 class Countries extends React.Component {
@@ -29,8 +34,13 @@ class Countries extends React.Component {
                     {this.props.data.map((country) => {
                         return <Checkbox checked={this.props.init[country]} onChange={this.handleChange}
                                          value={country}
-                                         label={country}
-                                         name='Country' key={country}/>
+                                         label={generateLabel(country)}
+                                         name='Country' key={country}
+                                         tooltip={(data, e) => {
+                                             console.log(data, e)
+                                         }
+                                         }
+                        />
                     })}
                 </div>
             </div>
