@@ -13,7 +13,7 @@ import {UPDATE_VIEW} from '../constants/action-types'
 const initialState = {
     countries: [],
     overall: [{
-        'id': 'CAN',
+        'id': 'AFG',
         'data': [
             {
                 'x': 1,
@@ -22,7 +22,7 @@ const initialState = {
         ],
     }],
     overallSubset: [{
-        'id': 'CAN',
+        'id': 'AFG',
         'data': [
             {
                 'x': 1,

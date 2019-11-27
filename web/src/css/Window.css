@@ -128,3 +128,15 @@
     max-width: 8rem;
     display: block;
 }
+
+.p25 {
+    background: rgb(242,173,167);
+   }
+
+.p50 {
+    background: rgb(179,205,227);
+}
+
+.p75 {
+    background: rgb(204,235,197);
+}

@@ -37,6 +37,7 @@ const ResetStyles = createGlobalStyle`
   ${reset}
 `
 
+// This component serves the purpose of connecting all the other components together.
 class App extends React.Component {
     intervalId = 0
     startYear = 1990
@@ -201,10 +202,13 @@ class App extends React.Component {
                         <div styleName='appStyles.windowContainerBullet'>
                             <Element name='bullet'>
                                 <Window styleName='styles.windowSpacing'>
-                                    <WindowHeader styleName='styles.windowHeader'>📊 The 25th, 50th, 75th percentile and average </WindowHeader>
+                                    <WindowHeader styleName='styles.windowHeader'>📊 The 25th, 50th, 75th percentile and average of 2018 data</WindowHeader>
                                     <WindowContent>
                                         <Fieldset
                                             label='Three types of shade display the 25th, 50th, and 75th percentile of current selection of countries. Red marker shows the average.'>
+                                            <span styleName='styles.p25'>The 25th Percentile.  </span>
+                                            <span styleName='styles.p50'>The 50th Percentile.  </span>
+                                            <span styleName='styles.p75'>The 75th Percentile.  </span>
                                             <div styleName='appStyles.bullet'>
                                                 <Bullet/>
                                             </div>

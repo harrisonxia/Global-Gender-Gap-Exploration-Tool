@@ -1,9 +1,9 @@
 {
-  "name": "harrison-personal-website",
+  "name": "global-gender-gap-exploration-tool",
   "version": "2.0.0",
-  "description": "harrison-personal-website",
+  "description": "global-gender-gap-exploration-tool",
   "main": "index.js",
-  "homepage": "https://devxia.com/CMPT767",
+  "homepage": "https://viz.devxia.com",
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
     "s": "webpack-dev-server --mode development",
