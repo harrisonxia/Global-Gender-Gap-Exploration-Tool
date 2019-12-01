@@ -32,11 +32,12 @@ const Bullet = (props) => {
             if (dat.id === obj.id) {
                 let filtered = dat.data.filter(yearly => yearly.x === 2018)
                 if (filtered.length > 0)
-                    subset.push(filtered[0].y)
+                    if (filtered[0].y > 0)
+                        subset.push(filtered[0].y)
             }
         })
     })
-    console.log(subset)
+    // console.log(subset)
     let perc_25, perc_50, perc_75
     if (subset) {
         perc_25 = percentile(
@@ -60,22 +61,24 @@ const Bullet = (props) => {
                 let temp = dat.data.filter(yearly => yearly.x === 2018)
                 // console.log(temp)
                 if (temp.length > 0) {
-                    displayData.push(
-                        {
-                            'id': dat.id,
-                            'ranges': [
-                                perc_25 ? perc_25 : 0,
-                                perc_50 ? perc_50 : 0,
-                                perc_75 ? perc_75 : 0,
-                            ],
-                            'measures': [
-                                temp[0].y,
-                            ],
-                            'markers': [
-                                getAvg(subset),
-                            ],
-                        },
-                    )
+                    if (temp[0].y > 0) {
+                        displayData.push(
+                            {
+                                'id': dat.id,
+                                'ranges': [
+                                    perc_25 ? perc_25 : 0,
+                                    perc_50 ? perc_50 : 0,
+                                    perc_75 ? perc_75 : 0,
+                                ],
+                                'measures': [
+                                    temp[0].y,
+                                ],
+                                'markers': [
+                                    getAvg(subset),
+                                ],
+                            },
+                        )
+                    }
                 }
             }
         })
