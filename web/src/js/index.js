@@ -6,7 +6,7 @@ import store from './store/index.js'
 import App from './components/App.jsx'
 let baseName = '/'
 if (process.env.NODE_ENV === 'production') {
-    baseName = '/CMPT767'
+    baseName = '/Global-Gender-Gap-Exploration-Tool'
 }
 const defaultPath = '/'
 render(

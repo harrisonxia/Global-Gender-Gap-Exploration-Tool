@@ -122,7 +122,7 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: './src/index.html',
             filename: './index.html',
-            base: 'https://devxia.com/CMPT767/',
+            base: 'https://devxia.com/Global-Gender-Gap-Exploration-Tool/',
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,

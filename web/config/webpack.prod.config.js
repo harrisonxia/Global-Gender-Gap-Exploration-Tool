@@ -6,7 +6,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const webpackBaseConfig = require('./webpack.common.config.js')
 const path = require('path')
 const context = path.resolve(__dirname, '..')
-const ASSET_PATH = process.env.ASSET_PATH || '/CMPT767/'
+const ASSET_PATH = process.env.ASSET_PATH || '/Global-Gender-Gap-Exploration-Tool/'
 
 module.exports = merge(webpackBaseConfig, {
   optimization: {
